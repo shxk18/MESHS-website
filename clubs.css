@@ -76,7 +76,7 @@ html {
   color: #F5DB18 !important;
 }
 
-/* ------------------ Info ------------------ */
+/* INFO */
 .info-boxes {
   display: flex;
   flex-direction: column;
@@ -116,7 +116,7 @@ html {
   font-weight: bold;
 }
 
-/* ------------------ Clubs ------------------ */
+/* CLUBS */
 .clubs-title-banner {
   background-color: #f2f200;
   padding: 12px 64px;
@@ -206,7 +206,7 @@ html {
 .card-red { background: linear-gradient(180deg, #ffeaea, #ffe2e2); }
 .card-flame { background: linear-gradient(180deg, #eef2f7, #e6ebf2); }
 
-/* ------------------ Footer ------------------ */
+/* FOOTER */
 footer {
   background: #00a859;
   color: #fff;
@@ -317,3 +317,4 @@ footer::before {
 .social-icon:hover {
   transform: translateY(-3px);
 }
+
