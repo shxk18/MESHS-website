@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maximo Estrella Senior High School</title>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="header-footer.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Arial:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      display: none; 
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    .modal-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    .form-container {
+      background: rgba(52, 157, 108, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 35px;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .banner {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .overlay label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .overlay input[type="text"] {
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .highlight {
+      color: #f0ff69;
+    }
+
+    .choice-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .choice-btn {
+      background-color: white;
+      color: #349d6c;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 25px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      flex: 1;
+    }
+
+    .choice-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .choice-btn.active {
+      background-color: #f0ff69;
+      color: black;
+    }
+
+    .bottom-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .save-btn {
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 30px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s;
+    }
+
+    .submit-btn {
+      background-color: #f0ff69;
+      color: black;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 40px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s;
+    }
+
+    .save-btn:hover, .submit-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .overlay input::placeholder {
+      color: #b0b0b0;
+      font-weight: normal;
+    }
+
+    .overlay input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(240, 255, 105, 0.5);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-section">
+      <img class="bg" src="images/school-building.png" alt="School Building" />
+      <header>
+        <div class="logo-title">
+          <img src="images/meshslogo.png" alt="MESHS Logo" />
+          <h1>Maximo Estrella Senior High School</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="main.html" id="navbar">Home</a></li>
+            <li><a href="club.html" id="navbar">School Clubs</a></li>
+            <li><a href="Achievements.html" id="navbar">About Us</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <div class="hero">
+          <div class="hero-left">
+            <p class="hero-p"><span>M</span>AXIMO</p>
+            <p class="hero-p"><span>E</span>STRELLA</p>
+            <p class="hero-p"><span>S</span>ENIOR</p>
+            <p class="hero-p"><span>H</span>IGH</p>
+            <p class="hero-p"><span>S</span>CHOOL</p>
+          </div>
+          <div class="hero-right">
+            <div class="seals">
+              <img src="images/meshslogo.png" alt="MESHS Seal" id="meshss" />
+              <img src="images/depedlogo.png" alt="DepEd Seal" />
+              <img src="images/makatilogo.png" alt="Makati City Seal" />
+              <img src="images/ncr.jfif" alt="DepEd NCR Seal" />
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="motto">
+      Molding Excellent Students with Honor and Self-discipline
+    </div>
+
+    <div class="bottom-section">
+      <div class="address">
+        3251 J. Magsaysay St. Brgy. Carmona, Makati City
+      </div>
+      <div class="email">
+        Email Us: 340558@deped.gov.ph
+      </div>
+      <div class="main-content">
+        <div class="acestrellians-box">
+          <div class="acestrellians-logo">
+            <img src="images/estrellians.png" alt="Star Icon" />
+          </div>
+        </div>
+
+        <div class="actions-section">
+          <div class="action-buttons">
+            <a href="#" class="action-button" id="enrollment" onclick="openOverlay(event)">
+              <img src="images/enroll-icon.png" alt="Enroll Now Icon" />
+              <span>ENROLL NOW!</span>
+            </a>
+            <a href="Achievements.html" class="action-button">
+              <img src="images/award-icon.png" alt="School Achievements Icon" />
+              <span>SCHOOL ACHIEVEMENTS</span>
+            </a>
+            <a href="club.html" class="action-button">
+              <img src="images/group-icon.png" alt="School Clubs Icon" />
+              <span>SCHOOL CLUBS</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stcontainer">
+    <header class="sthero-section">
+      <div class="sthero-text-container">
+        <h1>Be An<br>Estrellian !</h1>
+        <p class="stsubheading">Why become an Estrellian?</p>
+        <p class="stdescription">We Mold Excellent Students by nurturing a culture of Honor and fostering the habits of Self-discipline.</p>
+        <button class="sthero-button enroll-button" onclick="openOverlay(event)">ENROLL NOW!</button>
+        <button class="sthero-button application-button">
+          <i class="stfa-solid fa-play"></i>
+          APPLICATION REQUIREMENTS
+        </button>
+      </div>
+      <div class="sthero-image-container">
+        <img src="images/g12.png" alt="Proud Estrellians">
+        <div class="sthero-image-overlay">
+          <div class="sthero-image-text">PROUD ESTRELLIANS</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="stcontent-wrapper">
+      <main class="ststrands-section">
+        <div class="ststrands-title-banner">
+          <h2>ACADEMIC TRACK STRANDS</h2>
+        </div>
+        <div class="ststrands-grid">
+          <div class="ststrand-card">
+            <div class="ststrand-logo-container ststrand-logo-container--stem">
+              <img src="images/stem.png" alt="STEM Logo">
+            </div>
+            <div class="ststrand-label">
+              MESHS Science Technology Engineering and Mathematics Strand
+            </div>
+          </div>
+          <div class="ststrand-card">
+            <div class="ststrand-logo-container ststrand-logo-container--abm">
+              <img src="images/abm.png" alt="ABM Logo">
+            </div>
+            <div class="ststrand-label">
+              MESHS Accountancy and Business Management Strand
+            </div>
+          </div>
+          <div class="ststrand-card">
+            <div class="ststrand-logo-container ststrand-logo-container--humss">
+              <img src="images/kamafil.png" alt="HUMSS Logo">
+            </div>
+            <div class="ststrand-label">
+              MESHS Humanities and Social Sciences Strand
+            </div>
+          </div>
+          <div class="ststrand-card">
+            <div class="ststrand-logo-container ststrand-logo-container--gas">
+              <img src="images/gas.png" alt="GAS Logo">
+            </div>
+            <div class="ststrand-label">
+              MESHS General Academic Strand
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <section class="stfacebook-preview-section">
+        <div class="video-container">
+          <h2 class="video-title">Watch our video, <br>Be one of us!</h2>
+          <iframe src="https://www.facebook.com/plugins/video.php?height=450&href=https%3A%2F%2Fwww.facebook.com%2FMaximoEstrellaSHS%2Fvideos%2F1899315620475219%2F&show_text=false&width=800&t=0" width="800" height="450" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+        </div>
+      </section>
+    </div>
+
+    <!-- News Section -->
+    <section id="news-section">
+      <div class="news-header">
+        <div class="green-box"><span></span></div>
+        <div class="yellow-box"><span>SCHOOL NEWS</span></div>
+      </div>
+
+      <div class="news-scroll">
+        <div class="news-item"><img src="IMAGES/Screenshot_20251107_072524.jpg" alt="News 1"></div>
+        <div class="news-item"><img src="IMAGES/Screenshot_20251107_072555.jpg" alt="News 2"></div>
+        <div class="news-item"><img src="IMAGES/Screenshot_20251107_072622.jpg" alt="News 3"></div>
+        <div class="news-item"><img src="IMAGES/Screenshot_20251107_072640.jpg" alt="News 4"></div>
+        <div class="news-item"><img src="IMAGES/Screenshot_20251107_072706.jpg" alt="News 5"></div>
+        <div class="news-item"><img src="images/newspap 1.png" alt="News 1"></div>
+        <div class="news-item"><img src="images/newspap 2.png" alt="News 2"></div>
+        <div class="news-item"><img src="images/newspap 3.png" alt="News 3"></div>
+        <div class="news-item"><img src="images/newspap 4.png" alt="News 4"></div>
+        <div class="news-item"><img src="images/newspap 5.png" alt="News 5"></div>
+        <div class="news-item"><img src="images/newspap 6.png" alt="News 5"></div>
+      </div>
+
+      <div class="news-button">
+        <a href="https://drive.google.com/file/d/1a3PhAHD8RXfEL7sggPQV01d4cHBu6axc/view?usp=sharing" target="_blank">FULL PAGE AVAILABLE HERE</a>
+      </div>
+    </section>
+
+    <!-- Events Section -->
+    <div class="eventcontainer">
+      <div class="news-header event-header">
+        <div class="green-box"><span></span></div>
+        <div class="yellow-box"><span>SCHOOL EVENTS</span></div>
+      </div>
+
+      <main class="eventmain">
+        <div class="eventcontent-wrapper">
+          <div class="eventcontent-box">
+            <div class="eventcarousel-container">
+              <div class="eventcarousel-track" id="carouselTrack">
+                <div class="eventcarousel-slide">
+                  <img src="images/event1.png" alt="picture" data-slot="1">
+                  <img src="images/event2.png" alt="picture" data-slot="2">
+                  <img src="images/event3.png" alt="picture" data-slot="3">
+                </div>
+                <div class="eventcarousel-slide">
+                  <img src="images/event4.jpg" alt="picture" data-slot="4">
+                  <img src="images/event5.jpg" alt="picture" data-slot="5">
+                  <img src="images/event6.jpg" alt="picture" data-slot="6">
+                </div>
+                <div class="eventcarousel-slide">
+                  <img src="images/event7.jpg" alt="picture" data-slot="7">
+                  <img src="images/event8.jpg" alt="picture" data-slot="8">
+                  <img src="images/event9.jpg" alt="picture" data-slot="9">
+                </div>
+              </div>
+            </div>
+
+            <div class="eventcarousel-controls">
+              <button class="eventcarousel-button" id="prevBtn">‹</button>
+              <div class="eventcarousel-indicators" id="indicators"></div>
+              <button class="eventcarousel-button" id="nextBtn">›</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <div style="display: flex; justify-content: center; width: 100%; padding: 50px 20px; background-color: var(--bg-grey);">
+        <div style="position: relative; width: 100%; max-width: 650px;">
+          <div style="position: absolute; top: -30px; left: -30px; right: -30px; bottom: -30px; background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=700&fit=crop'); background-size: cover; background-position: center; border-radius: 40px 40px 130px 130px; opacity: 0.1; z-index: 1;"></div>
+
+          <div style="position: relative; z-index: 2; border-radius: 30px 30px 120px 120px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.15); background: rgba(240, 245, 240, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5);">
+            <div style="padding: 0 40px 40px 40px;">
+              <header style="position: relative; height: 60px; margin: 0 -40px 25px -40px;">
+                <div style="position: absolute; top: 20px; left: 0; width: 280px; height: 40px; background-color: #36a169; clip-path: polygon(0% 0%, 93% 0%, 100% 50%, 93% 100%, 0% 100%);"></div>
+                <div style="position: absolute; top: 20px; left: 200px; width: 250px; height: 40px; background-color: #eaff00; clip-path: polygon(0% 0%, 93% 0%, 100% 50%, 93% 100%, 0% 100%); display: flex; align-items: center; justify-content: center;">
+                  <h1 style="margin: 0; font-size: 20px; color: #000; font-weight: 900; letter-spacing: 1px;">MESHS HYMN</h1>
+                </div>
+              </header>
+              <main>
+                <div style="color: #1e5631; font-size: 21px; line-height: 1.5; font-weight: 700;">
+                  <p style="margin: 0 0 24px 0;">
+                    Molding us to excellence<br>
+                    With Teachers, friends and peers<br>
+                    Indeed, a loving community<br>
+                    That leads us to our dreams
+                  </p>
+                  <p style="margin: 0 0 24px 0;">
+                    Honor is our priority<br>
+                    We practice and rally<br>
+                    We Estrellians, it is true!<br>
+                    That we are born to be!
+                  </p>
+                  <p style="margin: 0 0 24px 0;">
+                    Self-discipline is our might!<br>
+                    We fight for what is right!<br>
+                    Self-discipline burns so bright!<br>
+                    That's the Estrellian s Light!
+                  </p>
+                  <p style="margin: 0;">
+                    Oh our Maximo Estrella,<br>
+                    We will always be grateful to thee!<br>
+                    Oh our Maximo Estrellia,<br>
+                    Our home forever will be!
+                  </p>
+                </div>
+              </main>
+            </div>
+          </div>
+
+          <div>
+            <a href="#" id="scrollToTop"><i class="fa-solid fa-arrow-up"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-container">
+        <div class="top-logos">
+          <img src="images/depedlogo.png" alt="DepEd Seal">
+          <img src="images/meshslogo.png" alt="MESHS Seal">
+          <img src="images/makatilogo.png" alt="Makati Seal">
+        </div>
+
+        <div class="main-content">
+          <div class="left-section">
+            <div class="brand-logo">
+              <img src="images/estrellians.png" alt="BE ACESTRELLIANS">
+            </div>
+            <div class="legal-info">
+              <p>© 2025 All rights reserved.</p>
+              <p>Privacy / Terms / Cookies / Do not sell my info</p>
+            </div>
+          </div>
+
+          <div class="right-section">
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <img src="images/igicon.png" alt="Instagram icon">
+            </a>
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <img src="images/fbicon.png" alt="Facebook icon">
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="overlay" id="enrollmentOverlay">
+    <div class="modal-container">
+      <div class="form-container">
+        <button class="close-btn" onclick="closeOverlay()">×</button>
+
+        <form onsubmit="handleSubmit(event)">
+          <div class="banner">
+            <img src="images/estrellians.png" alt="Enrollment form header banner">
+          </div>
+
+          <label for="name">NAME</label>
+          <input type="text" id="name" placeholder="TYPE HERE...." required>
+
+          <label for="address">ADDRESS</label>
+          <input type="text" id="address" placeholder="TYPE HERE...." required>
+
+          <label>
+            INCOMING: <span class="highlight">(SELECT ONE)</span>
+          </label>
+          <div class="choice-buttons">
+            <button type="button" class="choice-btn" onclick="selectGrade(this)">GR. 11</button>
+            <button type="button" class="choice-btn" onclick="selectGrade(this)">GR. 12</button>
+            <button type="button" class="choice-btn" onclick="selectGrade(this)">ALS</button>
+          </div>
+
+          <label for="jhs">JUNIOR HIGH SCHOOL</label>
+          <input type="text" id="jhs" placeholder="TYPE HERE...." required>
+
+          <div class="bottom-buttons">
+            <button type="button" class="save-btn" onclick="saveDraft()">SAVE DRAFT</button>
+            <button type="submit" class="submit-btn">SUBMIT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('scrollToTop').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicatorsContainer = document.getElementById('indicators');
+
+    const slides = document.querySelectorAll('.eventcarousel-slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    for (let i = 0; i < totalSlides; i++) {
+      const indicator = document.createElement('div');
+      indicator.classList.add('eventindicator');
+      if (i === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => goToSlide(i));
+      indicatorsContainer.appendChild(indicator);
+    }
+
+    const indicators = document.querySelectorAll('.eventindicator');
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      updateCarousel();
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    let autoAdvance = setInterval(nextSlide, 5000);
+
+    [prevBtn, nextBtn].forEach(btn => {
+      btn.addEventListener('click', () => {
+        clearInterval(autoAdvance);
+        autoAdvance = setInterval(nextSlide, 5000);
+      });
+    });
+
+    let selectedGrade = null;
+
+    function openOverlay(e) {
+      e.preventDefault();
+      document.getElementById('enrollmentOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeOverlay() {
+      const overlay = document.getElementById('enrollmentOverlay');
+      overlay.style.animation = 'fadeOut 0.3s ease-out';
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        overlay.style.animation = '';
+        document.body.style.overflow = ''; 
+      }, 300);
+    }
+
+    function selectGrade(btn) {
+      document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedGrade = btn.textContent;
+    }
+
+    function saveDraft() {
+      const formData = {
+        name: document.getElementById('name').value,
+        address: document.getElementById('address').value,
+        grade: selectedGrade,
+        jhs: document.getElementById('jhs').value
+      };
+      console.log('Draft saved:', formData);
+      alert('Draft saved successfully!');
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      if (!selectedGrade) {
+        alert('Please select an incoming grade level.');
+        return;
+      }
+
+      const formData = {
+        name: document.getElementById('name').value,
+        address: document.getElementById('address').value,
+        grade: selectedGrade,
+        jhs: document.getElementById('jhs').value
+      };
+
+      console.log('Form submitted:', formData);
+      alert('Form submitted successfully!');
+      closeOverlay();
+    }
+
+    document.getElementById('enrollmentOverlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeOverlay();
+      }
+    });
+  </script>
+</body>
+</html>

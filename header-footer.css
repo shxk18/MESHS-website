@@ -1,0 +1,218 @@
+    
+    
+    .container {
+      width: 100%;
+      background-color: var(--bg-grey);
+      overflow: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+      background-color: rgba(58, 145, 88, 0.9);
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-title img {
+      height: 50px;
+      width: 50px;
+    }
+
+    .logo-title h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-white);
+      background-color: var(--main-green);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+        /* Smaller Hero/Banner Section */
+    .top-section {
+      position: relative;
+      color: var(--text-white);
+      overflow: visible;
+      height: 488px;
+    }
+
+    .top-section img.bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+
+.motto {
+    background-color: rgba(58, 145, 88, 0.9);
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    padding-right: 395px;
+    padding-left: 395px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin:  0 150px 10px 300px;
+    margin-right: -100px;
+    border-radius: 50px;
+    letter-spacing: 5px;
+    position: absolute;
+    top: 449px;
+    left: -10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.address {
+    background-color: yellow;
+    text-align: center;
+    font-weight: bold;
+    color: #00724b;
+    padding-right: 330px;
+    padding-left: 330px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin:  0 150px 10px 300px;
+    margin-right: -100px;
+    border-radius: 50px;
+    letter-spacing: 5px;
+    position: absolute;
+    top: 510px;
+    left: 270px;
+    font-size: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.email {
+    background-color: #00724b;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    padding: 5px;
+    margin: 7px 200px 0 900px;
+    margin-right: -100px;
+    border-radius: 50px;
+    letter-spacing: 4px;
+    font-size: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    padding-left: 40px;
+    margin-top: 60px;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ min-height: 400px;
+  position: relative;
+  z-index: 2;
+  padding: 5px 0; /* reduced padding */
+}
+
+.hero-left {
+  background-color: var(--main-green);
+  width: 20%;
+  padding: 0px; /* smaller padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top-right-radius: 250px; /* smaller curve */
+  border-bottom-right-radius: 250px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 55px; /* smaller text */
+  line-height: 0;
+  letter-spacing: 2px;
+  text-align: left;
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+  padding-left: 10px;
+  font-weight: bolder;
+  height: 400px;
+  position: absolute;
+  top: 50px;
+  z-index: 0;
+}
+
+.hero-p {
+  margin: 0;
+  line-height: 1.25;
+}
+.hero-left span {
+  color: var(--highlight-yellow);
+}
+
+.hero-right {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: right;
+  padding: 5px;
+  position: relative;
+  z-index: 2;
+}
+
+.seals {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 70px;
+  padding-right: 250px;
+}
+
+.seals img {
+  height: 160px; /* smaller logos */
+  width: 160px;
+  border-radius: 50%;
+  padding: 0px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  margin: 25px;
+}
+
+#meshss {
+  position: absolute;
+  top: 10px;
+  left: 520px;
+  height: 240px;
+  width: 240px;
+}
+
+.slogan {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px; /* smaller text */
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
