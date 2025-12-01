@@ -76,7 +76,7 @@ html {
   color: #F5DB18 !important;
 }
 
-/* INFO */
+/* INFORMATION */
 .info-boxes {
   display: flex;
   flex-direction: column;
@@ -317,4 +317,5 @@ footer::before {
 .social-icon:hover {
   transform: translateY(-3px);
 }
+
 
