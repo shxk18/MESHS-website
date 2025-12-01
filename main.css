@@ -362,7 +362,7 @@ html {
       width: 80px;
       height: 70px;
     }
-/* ===================== News Section ===================== */
+/* News Section */
 #news-section {
   background-color:var(--bg-grey);
   padding: 50px 20px;
@@ -373,7 +373,7 @@ html {
   align-items: flex-start;
 }
 
-/* ===================== Header: Two Parallelograms ===================== */
+/* News Header */
 .news-header {
   display: flex;
   gap: 5px;              
@@ -417,7 +417,7 @@ html {
   white-space: nowrap;      
 }
 
-/* ===================== Horizontal Scroll of News Items ===================== */
+/* Scroll of News Items */
 .news-scroll {
   display: flex;
   overflow-x: auto;
@@ -458,7 +458,7 @@ html {
   transform: scale(1.05);
 }
 
-/* ===================== Full Page Button ===================== */
+/* Full Page Button */
 .news-button {
   width: 100%;
   display: flex;
@@ -1078,5 +1078,6 @@ footer::before {
 .social-icon:hover {
   transform: translateY(-3px);
 }
+
 
 
