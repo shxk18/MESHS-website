@@ -135,20 +135,20 @@
  min-height: 400px;
   position: relative;
   z-index: 2;
-  padding: 5px 0; /* reduced padding */
+  padding: 5px 0; 
 }
 
 .hero-left {
   background-color: var(--main-green);
   width: 20%;
-  padding: 0px; /* smaller padding */
+  padding: 0px; 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-top-right-radius: 250px; /* smaller curve */
+  border-top-right-radius: 250px; /* curve */
   border-bottom-right-radius: 250px;
   font-family: "Montserrat", sans-serif;
-  font-size: 55px; /* smaller text */
+  font-size: 55px; 
   line-height: 0;
   letter-spacing: 2px;
   text-align: left;
@@ -190,7 +190,7 @@
 }
 
 .seals img {
-  height: 160px; /* smaller logos */
+  height: 160px; /* logos */
   width: 160px;
   border-radius: 50%;
   padding: 0px;
@@ -209,9 +209,10 @@
 .slogan {
   text-align: center;
   margin-top: 8px;
-  font-size: 13px; /* smaller text */
+  font-size: 13px; 
   font-weight: 600;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
+
 
 
